@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.saka947.demo.dao.GradeMapper">
+  <resultMap id="BaseResultMap" type="com.saka947.demo.model.Grade">
+    <id column="grade_id" jdbcType="INTEGER" property="gradeId" />
+    <result column="stu_id" jdbcType="VARCHAR" property="stuId" />
+    <result column="subject_id" jdbcType="VARCHAR" property="subjectId" />
+    <result column="subject_mark" jdbcType="DECIMAL" property="subjectMark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    grade_id, stu_id, subject_id, subject_mark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from grade
+    where grade_id = #{gradeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from grade
+    where grade_id = #{gradeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.saka947.demo.model.Grade">
+    insert into grade (grade_id, stu_id, subject_id, 
+      subject_mark)
+    values (#{gradeId,jdbcType=INTEGER}, #{stuId,jdbcType=VARCHAR}, #{subjectId,jdbcType=VARCHAR}, 
+      #{subjectMark,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.saka947.demo.model.Grade">
+    insert into grade
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gradeId != null">
+        grade_id,
+      </if>
+      <if test="stuId != null">
+        stu_id,
+      </if>
+      <if test="subjectId != null">
+        subject_id,
+      </if>
+      <if test="subjectMark != null">
+        subject_mark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gradeId != null">
+        #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="stuId != null">
+        #{stuId,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectMark != null">
+        #{subjectMark,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.saka947.demo.model.Grade">
+    update grade
+    <set>
+      <if test="stuId != null">
+        stu_id = #{stuId,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null">
+        subject_id = #{subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectMark != null">
+        subject_mark = #{subjectMark,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where grade_id = #{gradeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.saka947.demo.model.Grade">
+    update grade
+    set stu_id = #{stuId,jdbcType=VARCHAR},
+      subject_id = #{subjectId,jdbcType=VARCHAR},
+      subject_mark = #{subjectMark,jdbcType=DECIMAL}
+    where grade_id = #{gradeId,jdbcType=INTEGER}
+  </update>
+</mapper>
