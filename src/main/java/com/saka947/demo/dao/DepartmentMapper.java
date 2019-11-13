@@ -1,7 +1,9 @@
 package com.saka947.demo.dao;
 
 import com.saka947.demo.model.Department;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface DepartmentMapper {
 
 

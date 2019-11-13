@@ -1,6 +1,7 @@
 package com.saka947.demo.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class Grade {
     private Integer gradeId;
@@ -10,6 +11,12 @@ public class Grade {
     private String subjectId;
 
     private BigDecimal subjectMark;
+
+    private String examName;
+
+    private Date createTime;
+
+    private Date updateTime;
 
     public Integer getGradeId() {
         return gradeId;
@@ -41,5 +48,29 @@ public class Grade {
 
     public void setSubjectMark(BigDecimal subjectMark) {
         this.subjectMark = subjectMark;
+    }
+
+    public String getExamName() {
+        return examName;
+    }
+
+    public void setExamName(String examName) {
+        this.examName = examName;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

@@ -36,5 +36,8 @@ create table `grade`(
 `stu_id` varchar (20) not null comment '学号',
 `subject_id` varchar (20) not null comment '科目编号',
 `subject_mark` decimal (5,1) not null comment '分数',
+`exam_name` varchar (20) not null comment '考试名称',
+`create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+`update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
 PRIMARY KEY (`grade_id`)
 )ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='成绩表';

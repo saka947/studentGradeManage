@@ -6,9 +6,12 @@
     <result column="stu_id" jdbcType="VARCHAR" property="stuId" />
     <result column="subject_id" jdbcType="VARCHAR" property="subjectId" />
     <result column="subject_mark" jdbcType="DECIMAL" property="subjectMark" />
+    <result column="exam_name" jdbcType="VARCHAR" property="examName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    grade_id, stu_id, subject_id, subject_mark
+    grade_id, stu_id, subject_id, subject_mark, exam_name, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -22,9 +25,11 @@
   </delete>
   <insert id="insert" parameterType="com.saka947.demo.model.Grade">
     insert into grade (grade_id, stu_id, subject_id, 
-      subject_mark)
+      subject_mark, exam_name, create_time, 
+      update_time)
     values (#{gradeId,jdbcType=INTEGER}, #{stuId,jdbcType=VARCHAR}, #{subjectId,jdbcType=VARCHAR}, 
-      #{subjectMark,jdbcType=DECIMAL})
+      #{subjectMark,jdbcType=DECIMAL}, #{examName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.saka947.demo.model.Grade">
     insert into grade
@@ -41,6 +46,15 @@
       <if test="subjectMark != null">
         subject_mark,
       </if>
+      <if test="examName != null">
+        exam_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="gradeId != null">
@@ -54,6 +68,15 @@
       </if>
       <if test="subjectMark != null">
         #{subjectMark,jdbcType=DECIMAL},
+      </if>
+      <if test="examName != null">
+        #{examName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -69,6 +92,15 @@
       <if test="subjectMark != null">
         subject_mark = #{subjectMark,jdbcType=DECIMAL},
       </if>
+      <if test="examName != null">
+        exam_name = #{examName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where grade_id = #{gradeId,jdbcType=INTEGER}
   </update>
@@ -76,7 +108,42 @@
     update grade
     set stu_id = #{stuId,jdbcType=VARCHAR},
       subject_id = #{subjectId,jdbcType=VARCHAR},
-      subject_mark = #{subjectMark,jdbcType=DECIMAL}
+      subject_mark = #{subjectMark,jdbcType=DECIMAL},
+      exam_name = #{examName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where grade_id = #{gradeId,jdbcType=INTEGER}
   </update>
+  <select id="getIfExist" resultMap="BaseResultMap" parameterType="com.saka947.demo.model.Grade">
+    select <include refid="Base_Column_List" />
+    from grade
+    where exam_name = #{examName,jdbcType=VARCHAR}
+    and stu_id = #{stuId,jdbcType=VARCHAR}
+    and subject_id = #{subjectId,jdbcType=VARCHAR}
+    limit 1
+  </select>
+
+  <select id="selectGrades" resultMap="BaseResultMap" parameterType="com.saka947.demo.model.Grade">
+    select <include refid="Base_Column_List" />
+    from grade
+    where 1=1
+    <if test="stuId != null">
+     and stu_id = #{stuId,jdbcType=VARCHAR},
+    </if>
+    <if test="subjectId != null">
+      and subject_id = #{subjectId,jdbcType=VARCHAR},
+    </if>
+    <if test="subjectMark != null">
+      and subject_mark = #{subjectMark,jdbcType=DECIMAL},
+    </if>
+    <if test="examName != null">
+      and exam_name = #{examName,jdbcType=VARCHAR},
+    </if>
+    <if test="createTime != null">
+      and create_time = #{createTime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="updateTime != null">
+      and update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+  </select>
 </mapper>
