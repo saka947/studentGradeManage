@@ -1,0 +1,29 @@
+<html>
+<body>
+test
+<div id="a"></div>
+<script src="js/jquery-3.4.1.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var list_url = '/grade/getGrade.ajax';
+
+    $(function() {
+        $.ajax({
+            url : list_url,
+            type : 'post',
+            async : false,
+            dataType : 'json',
+            data:JSON.stringify({'subjectId':'1'}),
+            contentType:'application/json;charset=UTF-8',
+            success : function(resp) {
+                if (resp.success) {
+                    for(var i = 0; i<resp.data.length; i++){
+                        $("#a").append('<h1>'+resp.data[i].subjectMark+'</h1>');
+                    }
+                }
+            }
+        });
+    })
+
+</script>
+</body>
+</html>

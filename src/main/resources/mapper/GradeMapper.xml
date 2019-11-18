@@ -128,19 +128,19 @@
     from grade
     where 1=1
     <if test="stuId != null">
-     and stu_id = #{stuId,jdbcType=VARCHAR},
+     and stu_id = #{stuId,jdbcType=VARCHAR}
     </if>
     <if test="subjectId != null">
-      and subject_id = #{subjectId,jdbcType=VARCHAR},
+      and subject_id = #{subjectId,jdbcType=VARCHAR}
     </if>
     <if test="subjectMark != null">
-      and subject_mark = #{subjectMark,jdbcType=DECIMAL},
+      and subject_mark = #{subjectMark,jdbcType=DECIMAL}
     </if>
     <if test="examName != null">
-      and exam_name = #{examName,jdbcType=VARCHAR},
+      and exam_name = #{examName,jdbcType=VARCHAR}
     </if>
     <if test="createTime != null">
-      and create_time = #{createTime,jdbcType=TIMESTAMP},
+      and create_time = #{createTime,jdbcType=TIMESTAMP}
     </if>
     <if test="updateTime != null">
       and update_time = #{updateTime,jdbcType=TIMESTAMP}
